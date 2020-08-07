@@ -1,7 +1,6 @@
 const Eris = require('eris');
-var Client = require("uptime-robot");
  
-const bot = new Eris(process.env.DISCORD_BOT_TOKEN);   
+const bot = new Eris("NzQwODcwODg2NjI1NjQwNDc4.XyvTyA.JGbDQ5czKnwB97KVaTicNgSnFrY");
 
 var active_po = null;
 var active_po_id = null;
