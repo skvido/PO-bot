@@ -26,7 +26,7 @@ bot.on('messageCreate', (msg) => {
               queue.push(msg.author);
             }else{
               queue.push(msg.author);
-              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue, there are "+queue.length -1 +" before you");
+              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue, there are "+ queue.length -1 +" before you");
             }
           }
         }else{
@@ -59,12 +59,12 @@ bot.on('messageCreate', (msg) => {
         }
       }
       else if (split[0] =="-q"){
-        q = "Queue for GM: \n ``` ";
+        q = "Queue for GM: ``` ";
         for (var i = 0 ; i < queue.length ; i++){
           if (i == 0){
-            q = q +"\n"+ i+1 +". --> "+ queue[i].username;
+            q = q + i +". --> "+ queue[i].username;
           }else{
-            q = q +"\n"+ i+1 +". "+ queue[i].username;
+            q = q +"\n"+ i +". "+ queue[i].username;
           }
         }
         q = q + "```";
