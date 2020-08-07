@@ -363,20 +363,24 @@ bot.on('messageCreate', (msg) => {
           }
         }
       }else if (split[0] =="-use"){
-        if (queue_gm.length != 0) {
           if (split[1] == "gm") {
-            bot.createMessage(msg.channel.id, "<@" + queue_gm[0].id + "> you are using GM now");
+            if (queue_gm.length != 0 )
+              bot.createMessage(msg.channel.id, "<@" + queue_gm[0].id + "> you are using GM now");
+            else
+              bot.createMessage(msg.channel.id, "GM queue is empty");
           } else if (split[1] == "cb") {
-            bot.createMessage(msg.channel.id, "<@" + queue_cb[0].id + "> you are using CB now");
+            if (queue_cb.length != 0 )
+              bot.createMessage(msg.channel.id, "<@" + queue_cb[0].id + "> you are using CB now");
+            else
+              bot.createMessage(msg.channel.id, "CB queue is empty");
           } else if (split[1] == "mow") {
-            bot.createMessage(msg.channel.id, "<@" + queue_mow[0].id + "> you are using MOW now");
-          } else {
+            if (queue_mow.length != 0 )
+              bot.createMessage(msg.channel.id, "<@" + queue_mow[0].id + "> you are using MOW now");
+            else
+              bot.createMessage(msg.channel.id, "MOW queue is empty");
+          }else {
             bot.createMessage(msg.channel.id, "Define correct title, for example '-use gm");
           }
-        }else{
-          bot.createMessage(msg.channel.id, "Queue is empty");
-        }
-
       }else{
         bot.createMessage(msg.channel.id, "This is not valid command");
       }
@@ -385,3 +389,9 @@ bot.on('messageCreate', (msg) => {
 });
 
 bot.connect();
+
+else if (split[1] == "cb") {
+  bot.createMessage(msg.channel.id, "<@" + queue_cb[0].id + "> you are using CB now");
+} else if (split[1] == "mow") {
+  bot.createMessage(msg.channel.id, "<@" + queue_mow[0].id + "> you are using MOW now");
+}
