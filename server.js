@@ -389,9 +389,3 @@ bot.on('messageCreate', (msg) => {
 });
 
 bot.connect();
-
-else if (split[1] == "cb") {
-  bot.createMessage(msg.channel.id, "<@" + queue_cb[0].id + "> you are using CB now");
-} else if (split[1] == "mow") {
-  bot.createMessage(msg.channel.id, "<@" + queue_mow[0].id + "> you are using MOW now");
-}
