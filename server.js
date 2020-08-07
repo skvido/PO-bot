@@ -436,7 +436,10 @@ bot.on('messageCreate', (msg) => {
               bot.createMessage(msg.channel.id, queue_gm[0][1] + " has been removed from GM queue ");
               queue_gm.shift();
               if (queue_gm.length > 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_gm[0][1] + "'");
+                if (queue_gm[0][0].username == queue_gm[0][1])
+                  bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_gm[0][1] + "'");
+                else
+                  bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_gm[0][1] + "'" + ", asked by " + queue_gm[0][0].username);
               } else {
                 bot.createMessage(msg.channel.id, "GM queue is now empty");
               }
@@ -448,7 +451,10 @@ bot.on('messageCreate', (msg) => {
               bot.createMessage(msg.channel.id, queue_cb[0][1] + " has been removed from CB queue ");
               queue_cb.shift();
               if (queue_cb.length > 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + queue_cb[0][1] + "'");
+                if (queue_cb[0][0].username == queue_cb[0][1])
+                  bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_cb[0][1] + "'");
+                else
+                  bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_cb[0][1] + "'" + ", asked by " + queue_cb[0][0].username);
               } else {
                 bot.createMessage(msg.channel.id, "CB queue is now empty");
               }
@@ -460,7 +466,10 @@ bot.on('messageCreate', (msg) => {
               bot.createMessage(msg.channel.id, queue_mow[0][1] + " has been removed from MOW queue ");
               queue_mow.shift();
               if (queue_mow.length > 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to '" + queue_mow[0][1] + "'");
+                if (queue_mow[0][0].username == queue_mow[0][1])
+                  bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_mow[0][1] + "'");
+                else
+                  bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_mow[0][1] + "'" + ", asked by " + queue_mow[0][0].username);
               } else {
                 bot.createMessage(msg.channel.id, "MOW queue is now empty");
               }
