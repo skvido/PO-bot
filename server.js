@@ -243,25 +243,29 @@ bot.on('messageCreate', (msg) => {
           bot.createMessage(msg.channel.id, "Nobody is logged as PO at this moment");
         }
       }else if(split[0] =="-next"){
-        if (msg.member.roles.includes("740980216708726836")) {
-          if (split[1] == "gm") {
-            bot.createMessage(msg.channel.id, queue_gm[0].username + " has been removed from GM queue ");
-            queue_gm.shift();
-            if (queue_gm.length > 0) {
-              bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_gm[0].username + "'");
-            }else{
-              bot.createMessage(msg.channel.id, "GM queue is now empty");
+        if (msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")){
+          if (queue_gm.length != 0) {
+            if (split[1] == "gm") {
+              bot.createMessage(msg.channel.id, queue_gm[0].username + " has been removed from GM queue ");
+              queue_gm.shift();
+              if (queue_gm.length > 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + queue_gm[0].username + "'");
+              } else {
+                bot.createMessage(msg.channel.id, "GM queue is now empty");
+              }
+            } else if (split[1] == "cb") {
+              bot.createMessage(msg.channel.id, queue_cb[0].username + " has been removed from CB queue ");
+              queue_cb.shift();
+              if (queue_cb.length > 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + queue_cb[0].username + "'");
+              } else {
+                bot.createMessage(msg.channel.id, "CB queue is now empty");
+              }
+            } else {
+              bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
             }
-          } else if (split[1] == "cb") {
-            bot.createMessage(msg.channel.id, queue_cb[0].username + " has been removed from CB queue ");
-            queue_cb.shift();
-            if (queue_cb.length > 0) {
-              bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + queue_cb[0].username + "'");
-            }else{
-              bot.createMessage(msg.channel.id, "CB queue is now empty");
-            }
-          } else {
-            bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
+          }else{
+            bot.createMessage(msg.channel.id, "Queue is empty");
           }
         }
       }else if (split[0] =="-use"){
