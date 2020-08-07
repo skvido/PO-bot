@@ -203,7 +203,7 @@ bot.on('messageCreate', (msg) => {
             if (queue_cb.length > 0) {
               bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + queue_cb[0].username + "'");
             }else{
-              bot.createMessage(msg.channel.id, "GM queue is now empty");
+              bot.createMessage(msg.channel.id, "CB queue is now empty");
             }
           } else {
             bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
