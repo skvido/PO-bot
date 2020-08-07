@@ -26,7 +26,7 @@ bot.on('messageCreate', (msg) => {
               queue.push(msg.author);
             }else{
               queue.push(msg.author);
-              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue, there are "+queue.length+" before you");
+              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue, there are "+queue.length -1 +" before you");
             }
           }
         }else{
@@ -61,7 +61,7 @@ bot.on('messageCreate', (msg) => {
       else if (split[0] =="-q"){
         q = "Queue for GM:";
         for (var i = 0 ; i < queue.length ; i++){
-          q = q +"\n"+ queue[i];
+          q = q +"\n"+ i +". "+ queue[i].username;
         }
         bot.createMessage(msg.channel.id, q);
       }
@@ -72,7 +72,7 @@ bot.on('messageCreate', (msg) => {
             active_po = "<@"+msg.author.id+">";
             active_po_id = msg.author.id;
             active_po_name = msg.author.username;
-            queue.push(msg.author);
+            queue = [];
             bot.createMessage(msg.channel.id, msg.author.username + " is now active PO, you can ask for titles");  
           }else{
             bot.createMessage(msg.channel.id, active_po_name + " is already logged as PO"); 
@@ -87,6 +87,7 @@ bot.on('messageCreate', (msg) => {
             active_po = null;
             active_po_id = null;
             active_po_name = null;
+            queue = [];
             bot.createMessage(msg.channel.id, msg.author.username + " is no longer logged as PO , please wait for next one");
           }else{
             bot.createMessage(msg.channel.id, "Only active PO can use -deactivate");  
