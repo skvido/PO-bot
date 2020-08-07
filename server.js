@@ -10,6 +10,8 @@ var queue_gm = [];
 var queue_cb = [];
 var found = false;
 var q;
+var num;
+var name;
 bot.on('ready', () => {
     console.log('Ready!');
 });
@@ -22,42 +24,92 @@ bot.on('messageCreate', (msg) => {
       if (split[0] =="-need"){
         if (active_po != null){
           if(split[1] == "gm"){
-            if (queue_gm.length == 0){
-              bot.createMessage(msg.channel.id, active_po + " assign grand maester to '"+msg.author.username+"'");
-              queue_gm.push(msg.author);
-            }else{
-              found = false;
-              for (var i = 0 ; i < queue_gm.length ; i++){
-                if (queue_gm[i].username == msg.author.username){
-                  bot.createMessage(msg.channel.id, msg.author.username + " you are already in GM queue");
-                  found = true;
-                  break;
-                }
+            if (split.length > 2){
+              name = split[2];
+              for (var i = 3 ; i < split.length ; i++){
+                name = name + " " + split[i];
               }
-              if (!found) {
+              if (queue_gm.length == 0){
+                bot.createMessage(msg.channel.id, active_po + " assign grand maester to "+ name+" , asked by '"+msg.author.username+"'");
                 queue_gm.push(msg.author);
-                bot.createMessage(msg.channel.id, msg.author.username + " was added to GM queue, you are on position " + queue_gm.length);
+              }else{
+                found = false;
+                for (var i = 0 ; i < queue_gm.length ; i++){
+                  if (queue_gm[i].username == msg.author.username){
+                    bot.createMessage(msg.channel.id, msg.author.username + " you are already in GM queue");
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  queue_gm.push(msg.author);
+                  bot.createMessage(msg.channel.id, msg.author.username + " was added to GM queue, you are on position " + queue_gm.length);
+                }
+                found = false;
               }
-              found = false;
+            }else {
+              if (queue_gm.length == 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + msg.author.username + "'");
+                queue_gm.push(msg.author);
+              } else {
+                found = false;
+                for (var i = 0; i < queue_gm.length; i++) {
+                  if (queue_gm[i].username == msg.author.username) {
+                    bot.createMessage(msg.channel.id, msg.author.username + " you are already in GM queue");
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  queue_gm.push(msg.author);
+                  bot.createMessage(msg.channel.id, msg.author.username + " was added to GM queue, you are on position " + queue_gm.length);
+                }
+                found = false;
+              }
             }
           }else if (split[1] == "cb"){
-            if (queue_cb.length == 0){
-              bot.createMessage(msg.channel.id, active_po + " assign chief builder to '"+msg.author.username+"'");
-              queue_cb.push(msg.author);
-            }else{
-              found = false;
-              for (var i = 0 ; i < queue_cb.length ; i++){
-                if (queue_cb[i].username == msg.author.username){
-                  bot.createMessage(msg.channel.id, msg.author.username + " you are already in CB queue");
-                  found = true;
-                  break;
-                }
+            if (split.length > 2) {
+              name = split[2];
+              for (var i = 3; i < split.length; i++) {
+                name = name + " " + split[i];
               }
-              if (!found) {
+              if (queue_cb.length == 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign chief builder to "+ name+" , asked by '"+msg.author.username+"'");
                 queue_cb.push(msg.author);
-                bot.createMessage(msg.channel.id, msg.author.username + " was added to CB queue, you are on position " + queue_cb.length);
+              } else {
+                found = false;
+                for (var i = 0; i < queue_cb.length; i++) {
+                  if (queue_cb[i].username == msg.author.username) {
+                    bot.createMessage(msg.channel.id, msg.author.username + " you are already in CB queue");
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  queue_cb.push(msg.author);
+                  bot.createMessage(msg.channel.id, msg.author.username + " was added to CB queue, you are on position " + queue_cb.length);
+                }
+                found = false;
               }
-              found = false;
+            }else {
+              if (queue_cb.length == 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + msg.author.username + "'");
+                queue_cb.push(msg.author);
+              } else {
+                found = false;
+                for (var i = 0; i < queue_cb.length; i++) {
+                  if (queue_cb[i].username == msg.author.username) {
+                    bot.createMessage(msg.channel.id, msg.author.username + " you are already in CB queue");
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  queue_cb.push(msg.author);
+                  bot.createMessage(msg.channel.id, msg.author.username + " was added to CB queue, you are on position " + queue_cb.length);
+                }
+                found = false;
+              }
             }
           }else{
             bot.createMessage(msg.channel.id, msg.author.username + " define correct title that you are asking for , for example '-need gm'");
@@ -126,10 +178,11 @@ bot.on('messageCreate', (msg) => {
           if (queue_gm.length != 0) {
             q = "Queue for GM: ```";
             for (var i = 0; i < queue_gm.length; i++) {
+              num = i+1;
               if (i == 0) {
-                q = q + parseInt(i) + 1 + ". --> " + queue_gm[i].username;
+                q = q + num + ". --> " + queue_gm[i].username;
               } else {
-                q = q + "\n" + parseInt(i) + 1 + ". " + queue_gm[i].username;
+                q = q + "\n" + num + ". " + queue_gm[i].username;
               }
             }
             q = q + "```";
@@ -141,10 +194,11 @@ bot.on('messageCreate', (msg) => {
           if (queue_cb.length != 0) {
             q = "Queue for CB: ```";
             for (var i = 0; i < queue_cb.length; i++) {
+              num = i+1;
               if (i == 0) {
-                q = q + parseInt(i) + 1 + ". --> " + queue_cb[i].username;
+                q = q + num + ". --> " + queue_cb[i].username;
               } else {
-                q = q + "\n" + parseInt(i) + 1 + ". " + queue_cb[i].username;
+                q = q + "\n" + num + ". " + queue_cb[i].username;
               }
             }
             q = q + "```";
@@ -210,6 +264,15 @@ bot.on('messageCreate', (msg) => {
             bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
           }
         }
+      }else if (split[0] =="-use"){
+        if (split[1] == "gm") {
+          bot.createMessage(msg.channel.id, "<@"+queue_gm[0].id+"> you are using GM now" );
+        }else if (split[1] == "cb") {
+          bot.createMessage(msg.channel.id, "<@"+queue_cb[0].id+"> you are using CB now" );
+        }else{
+          bot.createMessage(msg.channel.id, "Define correct title, for example '-use gm");
+        }
+
       }else{
         bot.createMessage(msg.channel.id, "This is not valid command");
       }
