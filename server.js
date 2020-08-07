@@ -8,6 +8,7 @@ var active_po_name = null;
 
 var queue_gm = [];
 var queue_cb = [];
+var queue_mow = [];
 var found = false;
 var q;
 var num;
@@ -111,6 +112,50 @@ bot.on('messageCreate', (msg) => {
                 found = false;
               }
             }
+          }else if(split[1] == "mow"){
+            if (split.length > 2){
+              name = split[2];
+              for (var i = 3 ; i < split.length ; i++){
+                name = name + " " + split[i];
+              }
+              if (queue_mow.length == 0){
+                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to "+ name+" , asked by '"+msg.author.username+"'");
+                queue_mow.push(msg.author);
+              }else{
+                found = false;
+                for (var i = 0 ; i < queue_mow.length ; i++){
+                  if (queue_mow[i].username == msg.author.username){
+                    bot.createMessage(msg.channel.id, msg.author.username + " you are already in MOW queue");
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  queue_mow.push(msg.author);
+                  bot.createMessage(msg.channel.id, msg.author.username + " was added to MOW queue, you are on position " + queue_mow.length);
+                }
+                found = false;
+              }
+            }else {
+              if (queue_mow.length == 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to '" + msg.author.username + "'");
+                queue_mow.push(msg.author);
+              } else {
+                found = false;
+                for (var i = 0; i < queue_mow.length; i++) {
+                  if (queue_mow[i].username == msg.author.username) {
+                    bot.createMessage(msg.channel.id, msg.author.username + " you are already in MOW queue");
+                    found = true;
+                    break;
+                  }
+                }
+                if (!found) {
+                  queue_mow.push(msg.author);
+                  bot.createMessage(msg.channel.id, msg.author.username + " was added to MOW queue, you are on position " + queue_mow.length);
+                }
+                found = false;
+              }
+            }
           }else{
             bot.createMessage(msg.channel.id, msg.author.username + " define correct title that you are asking for , for example '-need gm'");
           }
@@ -169,6 +214,31 @@ bot.on('messageCreate', (msg) => {
           } else {
             bot.createMessage(msg.channel.id, msg.author.username + " you are not even in CB queue ");
           }
+        }else if (split[1] == "mow"){
+          if (queue_mow.length > 0) {
+            if (queue_mow[0].username == msg.author.username) {
+              bot.createMessage(msg.channel.id, queue_mow[0].username + " has been removed from MOW queue ");
+              queue_mow.shift();
+              if (queue_mow.length > 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to '" + queue_mow[0].username + "'");
+              }
+            } else {
+              found = false;
+              for (var i = 0; i < queue_mow.length; i++) {
+                if (queue_mow[i].username == msg.author.username) {
+                  bot.createMessage(msg.channel.id, queue_mow[i].username + " has been removed from MOW queue ");
+                  queue_mow.splice(i, 1);
+                  found = true;
+                  break;
+                }
+              }
+              if (!found) {
+                bot.createMessage(msg.channel.id, msg.author.username + " you are not even in MOW queue ");
+              }
+            }
+          } else {
+            bot.createMessage(msg.channel.id, msg.author.username + " you are not even in MOW queue ");
+          }
         }else{
           bot.createMessage(msg.channel.id, msg.author.username + " define what title are you done with , for example '-done gm'");
         }
@@ -205,6 +275,22 @@ bot.on('messageCreate', (msg) => {
             bot.createMessage(msg.channel.id, q);
           }else{
             bot.createMessage(msg.channel.id, "Queue for CB is empty");
+          }
+        }else if (split[1] == "mow"){
+          if (queue_mow.length != 0) {
+            q = "Queue for MOW: ```";
+            for (var i = 0; i < queue_mow.length; i++) {
+              num = i+1;
+              if (i == 0) {
+                q = q + num + ". --> " + queue_mow[i].username;
+              } else {
+                q = q + "\n" + num + ". " + queue_mow[i].username;
+              }
+            }
+            q = q + "```";
+            bot.createMessage(msg.channel.id, q);
+          }else{
+            bot.createMessage(msg.channel.id, "Queue for MOW is empty");
           }
         }else{
           bot.createMessage(msg.channel.id, "Define queue, for example '-q gm'");
@@ -261,7 +347,15 @@ bot.on('messageCreate', (msg) => {
               } else {
                 bot.createMessage(msg.channel.id, "CB queue is now empty");
               }
-            } else {
+            } else if (split[1] == "mow") {
+              bot.createMessage(msg.channel.id, queue_mow[0].username + " has been removed from MOW queue ");
+              queue_mow.shift();
+              if (queue_mow.length > 0) {
+                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to '" + queue_mow[0].username + "'");
+              } else {
+                bot.createMessage(msg.channel.id, "MOW queue is now empty");
+              }
+            }else {
               bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
             }
           }else{
@@ -274,6 +368,8 @@ bot.on('messageCreate', (msg) => {
             bot.createMessage(msg.channel.id, "<@" + queue_gm[0].id + "> you are using GM now");
           } else if (split[1] == "cb") {
             bot.createMessage(msg.channel.id, "<@" + queue_cb[0].id + "> you are using CB now");
+          } else if (split[1] == "mow") {
+            bot.createMessage(msg.channel.id, "<@" + queue_mow[0].id + "> you are using MOW now");
           } else {
             bot.createMessage(msg.channel.id, "Define correct title, for example '-use gm");
           }
