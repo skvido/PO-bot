@@ -15,12 +15,13 @@ bot.on('ready', () => {
 });
  
 bot.on('messageCreate', (msg) => {   
-  console.log(msg);
+  //console.log(msg);
     if(msg.content.substring(0,1) == ("-")) {   
       var split = msg.content.split(" ");
-      console.log(msg);
+      //console.log(msg);
       if (split[0] =="-need"){
         if (active_po != null){
+          bot.createMessage(msg.channel.id, split[1]);
           if(split[1] == "gm"){
             if (queue.length == 0){
               bot.createMessage(msg.channel.id, active_po + " assign grand maester to '"+msg.author.username+"'");  
@@ -81,7 +82,7 @@ bot.on('messageCreate', (msg) => {
             active_po = null;
             active_po_id = null;
             active_po_name = null;
-            bot.createMessage(msg.channel.id, msg.author.username + "is no longer logged as PO , please wait for next one");  
+            bot.createMessage(msg.channel.id, msg.author.username + " is no longer logged as PO , please wait for next one");
           }else{
             bot.createMessage(msg.channel.id, "Only active PO can use -deactivate");  
           }
