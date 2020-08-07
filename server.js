@@ -330,8 +330,8 @@ bot.on('messageCreate', (msg) => {
         }
       }else if(split[0] =="-next"){
         if (msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")){
-          if (queue_gm.length != 0) {
-            if (split[1] == "gm") {
+          if (split[1] == "gm") {
+            if (queue_gm.length != 0) {
               bot.createMessage(msg.channel.id, queue_gm[0].username + " has been removed from GM queue ");
               queue_gm.shift();
               if (queue_gm.length > 0) {
@@ -339,7 +339,11 @@ bot.on('messageCreate', (msg) => {
               } else {
                 bot.createMessage(msg.channel.id, "GM queue is now empty");
               }
-            } else if (split[1] == "cb") {
+            }else {
+              bot.createMessage(msg.channel.id, "GM queue is empty");
+            }
+          } else if (split[1] == "cb") {
+            if (queue_cb.length != 0) {
               bot.createMessage(msg.channel.id, queue_cb[0].username + " has been removed from CB queue ");
               queue_cb.shift();
               if (queue_cb.length > 0) {
@@ -347,7 +351,11 @@ bot.on('messageCreate', (msg) => {
               } else {
                 bot.createMessage(msg.channel.id, "CB queue is now empty");
               }
-            } else if (split[1] == "mow") {
+            }else{
+              bot.createMessage(msg.channel.id, "CB queue is empty");
+            }
+          } else if (split[1] == "mow") {
+            if (queue_mow.length != 0) {
               bot.createMessage(msg.channel.id, queue_mow[0].username + " has been removed from MOW queue ");
               queue_mow.shift();
               if (queue_mow.length > 0) {
@@ -356,11 +364,14 @@ bot.on('messageCreate', (msg) => {
                 bot.createMessage(msg.channel.id, "MOW queue is now empty");
               }
             }else {
-              bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
+              bot.createMessage(msg.channel.id, "MOW queue is empty");
             }
-          }else{
-            bot.createMessage(msg.channel.id, "Queue is empty");
+          }else {
+            bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
           }
+          }
+        }else {
+          bot.createMessage(msg.channel.id, "Only PO can use that command");
         }
       }else if (split[0] =="-use"){
           if (split[1] == "gm") {
