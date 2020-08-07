@@ -36,7 +36,7 @@ bot.on('messageCreate', (msg) => {
               }else{
                 found = false;
                 for (var i = 0 ; i < queue_gm.length ; i++){
-                  if (queue_gm[i][1] == msg.author.username){
+                  if (queue_gm[i][0].username == msg.author.username && queue_gm[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_gm[i][1] + " is already in GM queue");
                     found = true;
                     break;
@@ -55,7 +55,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_gm.length; i++) {
-                  if (queue_gm[i][1] == msg.author.username) {
+                  if (queue_gm[i][1] == msg.author.username && queue_gm[i][0].username == msg.author.username) {
                     bot.createMessage(msg.channel.id, msg.author.username + " you are already in GM queue");
                     found = true;
                     break;
@@ -80,7 +80,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][1] == msg.author.username) {
+                  if (queue_cb[i][0].username == msg.author.username && queue_cb[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_cb[i][1] + " is already in CB queue");
                     found = true;
                     break;
@@ -99,7 +99,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][1] == msg.author.username) {
+                  if (queue_cb[i][1] == msg.author.username && queue_cb[i][0].username == msg.author.username) {
                     bot.createMessage(msg.channel.id, msg.author.username + " you are already in CB queue");
                     found = true;
                     break;
@@ -124,7 +124,7 @@ bot.on('messageCreate', (msg) => {
               }else{
                 found = false;
                 for (var i = 0 ; i < queue_mow.length ; i++){
-                  if (queue_mow[i][1] == msg.author.username){
+                  if (queue_mow[i][0].username == msg.author.username && queue_mow[i][1] == name) {
                     bot.createMessage(msg.channel.id, msg.author.username + " is already in MOW queue");
                     found = true;
                     break;
@@ -143,7 +143,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_mow.length; i++) {
-                  if (queue_mow[i][1] == msg.author.username) {
+                  if (queue_mow[i][1] == msg.author.username && queue_mow[i][0].username == msg.author.username) {
                     bot.createMessage(msg.channel.id, msg.author.username + " is already in MOW queue");
                     found = true;
                     break;
@@ -184,7 +184,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_gm.length; i++) {
-                  if (queue_gm[i][1] == msg.author.username) {
+                  if (queue_gm[i][0].username == msg.author.username && queue_gm[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_gm[i][1] + " has been removed from GM queue ");
                     queue_gm.splice(i, 1);
                     found = true;
@@ -212,7 +212,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][1] == msg.author.username) {
+                  if (queue_cb[i][0].username == msg.author.username && queue_cb[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_cb[i][1] + " has been removed from CB queue ");
                     queue_cb.splice(i, 1);
                     found = true;
@@ -240,7 +240,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_mow.length; i++) {
-                  if (queue_mow[i][1] == msg.author.username) {
+                  if (queue_mow[i][0].username == msg.author.username && queue_mow[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_mow[i][1] + " has been removed from MOW queue ");
                     queue_mow.splice(i, 1);
                     found = true;
