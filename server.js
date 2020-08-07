@@ -369,7 +369,6 @@ bot.on('messageCreate', (msg) => {
           }else {
             bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
           }
-          }
         }else {
           bot.createMessage(msg.channel.id, "Only PO can use that command");
         }
