@@ -269,12 +269,16 @@ bot.on('messageCreate', (msg) => {
           }
         }
       }else if (split[0] =="-use"){
-        if (split[1] == "gm") {
-          bot.createMessage(msg.channel.id, "<@"+queue_gm[0].id+"> you are using GM now" );
-        }else if (split[1] == "cb") {
-          bot.createMessage(msg.channel.id, "<@"+queue_cb[0].id+"> you are using CB now" );
+        if (queue_gm.length != 0) {
+          if (split[1] == "gm") {
+            bot.createMessage(msg.channel.id, "<@" + queue_gm[0].id + "> you are using GM now");
+          } else if (split[1] == "cb") {
+            bot.createMessage(msg.channel.id, "<@" + queue_cb[0].id + "> you are using CB now");
+          } else {
+            bot.createMessage(msg.channel.id, "Define correct title, for example '-use gm");
+          }
         }else{
-          bot.createMessage(msg.channel.id, "Define correct title, for example '-use gm");
+          bot.createMessage(msg.channel.id, "Queue is empty");
         }
 
       }else{
