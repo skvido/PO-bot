@@ -27,6 +27,7 @@ bot.on('messageCreate', (msg) => {
               queue.push(msg.author);
             }else{
               queue.push(msg.author);
+              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue");
             }
           }
         }else{
