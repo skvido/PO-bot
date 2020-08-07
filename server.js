@@ -59,10 +59,15 @@ bot.on('messageCreate', (msg) => {
         }
       }
       else if (split[0] =="-q"){
-        q = "Queue for GM:";
+        q = "Queue for GM: \n ``` ";
         for (var i = 0 ; i < queue.length ; i++){
-          q = q +"\n"+ i +". "+ queue[i].username;
+          if (i == 0){
+            q = q +"\n"+ i+1 +". --> "+ queue[i].username;
+          }else{
+            q = q +"\n"+ i+1 +". "+ queue[i].username;
+          }
         }
+        q = q + "```";
         bot.createMessage(msg.channel.id, q);
       }
       else if (split[0] =="-activate"){
