@@ -159,7 +159,7 @@ bot.on('messageCreate', (msg) => {
       }
       else if (split[0] =="-activate"){
         console.log(msg.member.roles);
-        //bot.createMessage(msg.channel.id, msg.member.roles[0]);
+        bot.createMessage(msg.channel.id, msg.member.roles[0]);
         if (msg.member.roles.includes("709564651461148675")){
           if (active_po == null){
             active_po = "<@"+msg.author.id+">";
