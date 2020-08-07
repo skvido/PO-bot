@@ -13,6 +13,7 @@ var found = false;
 var q;
 var num;
 var name;
+var counter = 0;
 bot.on('ready', () => {
     console.log('Ready!');
 });
@@ -25,6 +26,7 @@ bot.on('messageCreate', (msg) => {
       if (split[0] =="-need"){
         if (active_po != null){
           if(split[1] == "gm"){
+            counter = counter + 1;
             if (split.length > 2){
               name = split[2];
               for (var i = 3 ; i < split.length ; i++){
@@ -69,6 +71,7 @@ bot.on('messageCreate', (msg) => {
               }
             }
           }else if (split[1] == "cb"){
+            counter = counter + 1;
             if (split.length > 2) {
               name = split[2];
               for (var i = 3; i < split.length; i++) {
@@ -113,6 +116,7 @@ bot.on('messageCreate', (msg) => {
               }
             }
           }else if(split[1] == "mow"){
+            counter = counter + 1;
             if (split.length > 2){
               name = split[2];
               for (var i = 3 ; i < split.length ; i++){
@@ -422,7 +426,10 @@ bot.on('messageCreate', (msg) => {
             queue_gm = [];
             queue_cb = [];
             queue_mow = [];
+
             bot.createMessage(msg.channel.id, msg.author.username + " is no longer logged as PO , please wait for next one");
+            bot.createMessage(msg.channel.id, msg.author.username + " had " + counter + " requests since active");
+            counter = 0;
           }else{
             bot.createMessage(msg.channel.id, "Only active PO can use -deactivate");
           }
@@ -430,7 +437,7 @@ bot.on('messageCreate', (msg) => {
           bot.createMessage(msg.channel.id, "Nobody is logged as PO at this moment");
         }
       }else if(split[0] =="-next"){
-        if (msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")){
+        if ((msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")) && active_po_id == msg.author.id){
           if (split[1] == "gm") {
             if (queue_gm.length != 0) {
               bot.createMessage(msg.channel.id, queue_gm[0][1] + " has been removed from GM queue ");
@@ -480,7 +487,7 @@ bot.on('messageCreate', (msg) => {
             bot.createMessage(msg.channel.id, "Define queue, for example '-next gm");
           }
         }else {
-          bot.createMessage(msg.channel.id, "Only PO can use that command");
+          bot.createMessage(msg.channel.id, "Only active PO can use that command");
         }
       }else if (split[0] =="-use"){
           if (split[1] == "gm") {
