@@ -8,7 +8,7 @@ var active_po_name = null;
 
 var queue = [];
 var found = false;
- 
+var q;
 bot.on('ready', () => {                                
     console.log('Ready!');                             
 });
@@ -20,14 +20,13 @@ bot.on('messageCreate', (msg) => {
       //console.log(msg);
       if (split[0] =="-need"){
         if (active_po != null){
-          bot.createMessage(msg.channel.id, split[1]);
           if(split[1] == "gm"){
             if (queue.length == 0){
               bot.createMessage(msg.channel.id, active_po + " assign grand maester to '"+msg.author.username+"'");  
               queue.push(msg.author);
             }else{
               queue.push(msg.author);
-              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue");
+              bot.createMessage(msg.channel.id, msg.author.username + " was added to queue, there are "+queue.length+" before you");
             }
           }
         }else{
@@ -58,6 +57,13 @@ bot.on('messageCreate', (msg) => {
         }else{
           bot.createMessage(msg.channel.id, queue[0].author.username + " you are not even in queue ");
         }
+      }
+      else if (split[0] =="-q"){
+        q = "Queue for GM:";
+        for (var i = 0 ; i < queue.length ; i++){
+          q = q +"\n"+ queue[i];
+        }
+        bot.createMessage(msg.channel.id, q);
       }
       else if (split[0] =="-activate"){
         console.log(msg.member.roles);
