@@ -428,7 +428,7 @@ bot.on('messageCreate', (msg) => {
             queue_mow = [];
 
             bot.createMessage(msg.channel.id, msg.author.username + " is no longer logged as PO , please wait for next one");
-            bot.createMessage(msg.channel.id, msg.author.username + " had " + counter + " requests since active");
+            bot.createMessage(msg.channel.id, msg.author.username + " you managed " + counter + " requests during your service. Thank you.");
             counter = 0;
           }else{
             bot.createMessage(msg.channel.id, "Only active PO can use -deactivate");
