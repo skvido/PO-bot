@@ -14,12 +14,21 @@ var q;
 var num;
 var name;
 var counter = 0;
+
+var nick;
+
+
 bot.on('ready', () => {
     console.log('Ready!');
 });
 
 bot.on('messageCreate', (msg) => {
   //console.log(msg);
+	if (nick[0] != null){
+		nick = [nick[0] , msg.author.id];
+	}else{
+		nick = [msg.author.username , msg.author.id];
+	}
     if(msg.content.substring(0,1) == ("-")) {
       var split = msg.content.split(" ");
       //console.log(msg);
@@ -33,12 +42,12 @@ bot.on('messageCreate', (msg) => {
                 name = name + " " + split[i];
               }
               if (queue_gm.length == 0){
-                bot.createMessage(msg.channel.id, active_po + " assign grand maester to "+ name+" , asked by '"+msg.member.nick+"'");
+                bot.createMessage(msg.channel.id, active_po + " assign grand maester to "+ name+" , asked by '"+nick[0]+"'");
                 queue_gm.push([msg.member,name]);
               }else{
                 found = false;
                 for (var i = 0 ; i < queue_gm.length ; i++){
-                  if (queue_gm[i][0].nick == msg.member.nick && queue_gm[i][1] == name) {
+                  if (queue_gm[i][0].nick == nick[0] && queue_gm[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_gm[i][1] + " is already in GM queue");
                     found = true;
                     break;
@@ -46,26 +55,26 @@ bot.on('messageCreate', (msg) => {
                 }
                 if (!found) {
                   queue_gm.push([msg.member,name]);
-                  bot.createMessage(msg.channel.id, name + " was added to GM queue, you are on position " + queue_gm.length + " asked by " + msg.member.nick);
+                  bot.createMessage(msg.channel.id, name + " was added to GM queue, you are on position " + queue_gm.length + " asked by " + nick[0]);
                 }
                 found = false;
               }
             }else {
               if (queue_gm.length == 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + msg.member.nick + "'");
-                queue_gm.push([msg.member,msg.member.nick]);
+                bot.createMessage(msg.channel.id, active_po + " assign grand maester to '" + nick[0] + "'");
+                queue_gm.push([msg.member,nick[0]]);
               } else {
                 found = false;
                 for (var i = 0; i < queue_gm.length; i++) {
-                  if (queue_gm[i][1] == msg.member.nick && queue_gm[i][0].nick == msg.member.nick) {
-                    bot.createMessage(msg.channel.id, msg.member.nick + " you are already in GM queue");
+                  if (queue_gm[i][1] == nick[0] && queue_gm[i][0].nick == nick[0]) {
+                    bot.createMessage(msg.channel.id, nick[0] + " you are already in GM queue");
                     found = true;
                     break;
                   }
                 }
                 if (!found) {
-                  queue_gm.push([msg.member,msg.member.nick]);
-                  bot.createMessage(msg.channel.id, msg.member.nick + " was added to GM queue, you are on position " + queue_gm.length);
+                  queue_gm.push([msg.member,nick[0]]);
+                  bot.createMessage(msg.channel.id, nick[0] + " was added to GM queue, you are on position " + queue_gm.length);
                 }
                 found = false;
               }
@@ -78,12 +87,12 @@ bot.on('messageCreate', (msg) => {
                 name = name + " " + split[i];
               }
               if (queue_cb.length == 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign chief builder to "+ name+" , asked by '"+msg.member.nick+"'");
+                bot.createMessage(msg.channel.id, active_po + " assign chief builder to "+ name+" , asked by '"+nick[0]+"'");
                 queue_cb.push([msg.member,name]);
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][0].nick == msg.member.nick && queue_cb[i][1] == name) {
+                  if (queue_cb[i][0].nick == nick[0] && queue_cb[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_cb[i][1] + " is already in CB queue");
                     found = true;
                     break;
@@ -91,26 +100,26 @@ bot.on('messageCreate', (msg) => {
                 }
                 if (!found) {
                   queue_cb.push([msg.member,name]);
-                  bot.createMessage(msg.channel.id, name + " was added to CB queue, you are on position " + queue_cb.length + " asked by " + msg.member.nick);
+                  bot.createMessage(msg.channel.id, name + " was added to CB queue, you are on position " + queue_cb.length + " asked by " + nick[0]);
                 }
                 found = false;
               }
             }else {
               if (queue_cb.length == 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + msg.member.nick + "'");
-                queue_cb.push([msg.member,msg.member.nick]);
+                bot.createMessage(msg.channel.id, active_po + " assign chief builder to '" + nick[0] + "'");
+                queue_cb.push([msg.member,nick[0]]);
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][1] == msg.member.nick && queue_cb[i][0].nick == msg.member.nick) {
-                    bot.createMessage(msg.channel.id, msg.member.nick + " you are already in CB queue");
+                  if (queue_cb[i][1] == nick[0] && queue_cb[i][0].nick == nick[0]) {
+                    bot.createMessage(msg.channel.id, nick[0] + " you are already in CB queue");
                     found = true;
                     break;
                   }
                 }
                 if (!found) {
-                  queue_cb.push([msg.member,msg.member.nick]);
-                  bot.createMessage(msg.channel.id, msg.member.nick + " was added to CB queue, you are on position " + queue_cb.length);
+                  queue_cb.push([msg.member,nick[0]]);
+                  bot.createMessage(msg.channel.id, nick[0] + " was added to CB queue, you are on position " + queue_cb.length);
                 }
                 found = false;
               }
@@ -123,45 +132,45 @@ bot.on('messageCreate', (msg) => {
                 name = name + " " + split[i];
               }
               if (queue_mow.length == 0){
-                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to "+ name+" , asked by '"+msg.member.nick+"'");
+                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to "+ name+" , asked by '"+nick[0]+"'");
                 queue_mow.push([msg.member,name]);
               }else{
                 found = false;
                 for (var i = 0 ; i < queue_mow.length ; i++){
-                  if (queue_mow[i][0].nick == msg.member.nick && queue_mow[i][1] == name) {
-                    bot.createMessage(msg.channel.id, msg.member.nick + " is already in MOW queue");
+                  if (queue_mow[i][0].nick == nick[0] && queue_mow[i][1] == name) {
+                    bot.createMessage(msg.channel.id, nick[0] + " is already in MOW queue");
                     found = true;
                     break;
                   }
                 }
                 if (!found) {
                   queue_mow.push([msg.member,name]);
-                  bot.createMessage(msg.channel.id, name + " was added to MOW queue, you are on position " + queue_mow.length + " asked by " + msg.member.nick);
+                  bot.createMessage(msg.channel.id, name + " was added to MOW queue, you are on position " + queue_mow.length + " asked by " + nick[0]);
                 }
                 found = false;
               }
             }else {
               if (queue_mow.length == 0) {
-                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to '" + msg.member.nick + "'");
-                queue_mow.push([msg.member,msg.member.nick]);
+                bot.createMessage(msg.channel.id, active_po + " assign master of whisperers to '" + nick[0] + "'");
+                queue_mow.push([msg.member,nick[0]]);
               } else {
                 found = false;
                 for (var i = 0; i < queue_mow.length; i++) {
-                  if (queue_mow[i][1] == msg.member.nick && queue_mow[i][0].nick == msg.member.nick) {
-                    bot.createMessage(msg.channel.id, msg.member.nick + " is already in MOW queue");
+                  if (queue_mow[i][1] == nick[0] && queue_mow[i][0].nick == nick[0]) {
+                    bot.createMessage(msg.channel.id, nick[0] + " is already in MOW queue");
                     found = true;
                     break;
                   }
                 }
                 if (!found) {
-                  queue_mow.push([msg.member,msg.member.nick]);
-                  bot.createMessage(msg.channel.id, msg.member.nick + " was added to MOW queue, you are on position " + queue_mow.length);
+                  queue_mow.push([msg.member,nick[0]]);
+                  bot.createMessage(msg.channel.id, nick[0] + " was added to MOW queue, you are on position " + queue_mow.length);
                 }
                 found = false;
               }
             }
           }else{
-            bot.createMessage(msg.channel.id, msg.member.nick + " define correct title that you are asking for , for example '-need gm'");
+            bot.createMessage(msg.channel.id, nick[0] + " define correct title that you are asking for , for example '-need gm'");
           }
         }else{
           bot.createMessage(msg.channel.id, "Nobody is logged as PO at this moment");
@@ -176,7 +185,7 @@ bot.on('messageCreate', (msg) => {
           }
           if (split[1] == "gm") {
             if (queue_gm.length > 0) {
-              if (queue_gm[0][0].nick == msg.member.nick && queue_gm[0][1] == name) {
+              if (queue_gm[0][0].nick == nick[0] && queue_gm[0][1] == name) {
                 bot.createMessage(msg.channel.id, queue_gm[0][1] + " has been removed from GM queue ");
                 queue_gm.shift();
                 if (queue_gm.length > 0) {
@@ -188,7 +197,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_gm.length; i++) {
-                  if (queue_gm[i][0].nick == msg.member.nick && queue_gm[i][1] == name) {
+                  if (queue_gm[i][0].nick == nick[0] && queue_gm[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_gm[i][1] + " has been removed from GM queue ");
                     queue_gm.splice(i, 1);
                     found = true;
@@ -196,15 +205,15 @@ bot.on('messageCreate', (msg) => {
                   }
                 }
                 if (!found) {
-                  bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in GM queue ");
+                  bot.createMessage(msg.channel.id, nick[0] + " you are not even in GM queue ");
                 }
               }
             } else {
-              bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in GM queue ");
+              bot.createMessage(msg.channel.id, nick[0] + " you are not even in GM queue ");
             }
           } else if (split[1] == "cb") {
             if (queue_cb.length > 0) {
-              if (queue_cb[0][0].nick == msg.member.nick && queue_cb[0][1] == name) {
+              if (queue_cb[0][0].nick == nick[0] && queue_cb[0][1] == name) {
                 bot.createMessage(msg.channel.id, queue_cb[0][1] + " has been removed from CB queue ");
                 queue_cb.shift();
                 if (queue_cb.length > 0) {
@@ -216,7 +225,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][0].nick == msg.member.nick && queue_cb[i][1] == name) {
+                  if (queue_cb[i][0].nick == nick[0] && queue_cb[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_cb[i][1] + " has been removed from CB queue ");
                     queue_cb.splice(i, 1);
                     found = true;
@@ -224,15 +233,15 @@ bot.on('messageCreate', (msg) => {
                   }
                 }
                 if (!found) {
-                  bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in CB queue ");
+                  bot.createMessage(msg.channel.id, nick[0] + " you are not even in CB queue ");
                 }
               }
             } else {
-              bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in CB queue ");
+              bot.createMessage(msg.channel.id, nick[0] + " you are not even in CB queue ");
             }
           } else if (split[1] == "mow") {
             if (queue_mow.length > 0) {
-              if (queue_mow[0][0].nick == msg.member.nick && queue_mow[0][1] == name) {
+              if (queue_mow[0][0].nick == nick[0] && queue_mow[0][1] == name) {
                 bot.createMessage(msg.channel.id, queue_mow[0][1] + " has been removed from MOW queue ");
                 queue_mow.shift();
                 if (queue_mow.length > 0) {
@@ -244,7 +253,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_mow.length; i++) {
-                  if (queue_mow[i][0].nick == msg.member.nick && queue_mow[i][1] == name) {
+                  if (queue_mow[i][0].nick == nick[0] && queue_mow[i][1] == name) {
                     bot.createMessage(msg.channel.id, queue_mow[i][1] + " has been removed from MOW queue ");
                     queue_mow.splice(i, 1);
                     found = true;
@@ -252,21 +261,21 @@ bot.on('messageCreate', (msg) => {
                   }
                 }
                 if (!found) {
-                  bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in MOW queue ");
+                  bot.createMessage(msg.channel.id, nick[0] + " you are not even in MOW queue ");
                 }
               }
             } else {
-              bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in MOW queue ");
+              bot.createMessage(msg.channel.id, nick[0] + " you are not even in MOW queue ");
             }
           } else {
-            bot.createMessage(msg.channel.id, msg.member.nick + " define what title are you done with , for example '-done gm'");
+            bot.createMessage(msg.channel.id, nick[0] + " define what title are you done with , for example '-done gm'");
           }
 
           //-------------------------------------------------------------------------------------------------------------------------------------------------
         }else{
           if (split[1] == "gm") {
             if (queue_gm.length > 0) {
-              if (queue_gm[0][1] == msg.member.nick) {
+              if (queue_gm[0][1] == nick[0]) {
                 bot.createMessage(msg.channel.id, queue_gm[0][1] + " has been removed from GM queue ");
                 queue_gm.shift();
                 if (queue_gm.length > 0) {
@@ -275,7 +284,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_gm.length; i++) {
-                  if (queue_gm[i][1] == msg.member.nick) {
+                  if (queue_gm[i][1] == nick[0]) {
                     bot.createMessage(msg.channel.id, queue_gm[i][1] + " has been removed from GM queue ");
                     queue_gm.splice(i, 1);
                     found = true;
@@ -283,15 +292,15 @@ bot.on('messageCreate', (msg) => {
                   }
                 }
                 if (!found) {
-                  bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in GM queue ");
+                  bot.createMessage(msg.channel.id, nick[0] + " you are not even in GM queue ");
                 }
               }
             } else {
-              bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in GM queue ");
+              bot.createMessage(msg.channel.id, nick[0] + " you are not even in GM queue ");
             }
           } else if (split[1] == "cb") {
             if (queue_cb.length > 0) {
-              if (queue_cb[0][1] == msg.member.nick) {
+              if (queue_cb[0][1] == nick[0]) {
                 bot.createMessage(msg.channel.id, queue_cb[0][1] + " has been removed from CB queue ");
                 queue_cb.shift();
                 if (queue_cb.length > 0) {
@@ -300,7 +309,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_cb.length; i++) {
-                  if (queue_cb[i][1] == msg.member.nick) {
+                  if (queue_cb[i][1] == nick[0]) {
                     bot.createMessage(msg.channel.id, queue_cb[i][1] + " has been removed from CB queue ");
                     queue_cb.splice(i, 1);
                     found = true;
@@ -308,15 +317,15 @@ bot.on('messageCreate', (msg) => {
                   }
                 }
                 if (!found) {
-                  bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in CB queue ");
+                  bot.createMessage(msg.channel.id, nick[0] + " you are not even in CB queue ");
                 }
               }
             } else {
-              bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in CB queue ");
+              bot.createMessage(msg.channel.id, nick[0] + " you are not even in CB queue ");
             }
           } else if (split[1] == "mow") {
             if (queue_mow.length > 0) {
-              if (queue_mow[0][1] == msg.member.nick) {
+              if (queue_mow[0][1] == nick[0]) {
                 bot.createMessage(msg.channel.id, queue_mow[0][1] + " has been removed from MOW queue ");
                 queue_mow.shift();
                 if (queue_mow.length > 0) {
@@ -325,7 +334,7 @@ bot.on('messageCreate', (msg) => {
               } else {
                 found = false;
                 for (var i = 0; i < queue_mow.length; i++) {
-                  if (queue_mow[i][1] == msg.member.nick) {
+                  if (queue_mow[i][1] == nick[0]) {
                     bot.createMessage(msg.channel.id, queue_mow[i][1] + " has been removed from MOW queue ");
                     queue_mow.splice(i, 1);
                     found = true;
@@ -333,14 +342,14 @@ bot.on('messageCreate', (msg) => {
                   }
                 }
                 if (!found) {
-                  bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in MOW queue ");
+                  bot.createMessage(msg.channel.id, nick[0] + " you are not even in MOW queue ");
                 }
               }
             } else {
-              bot.createMessage(msg.channel.id, msg.member.nick + " you are not even in MOW queue ");
+              bot.createMessage(msg.channel.id, nick[0] + " you are not even in MOW queue ");
             }
           } else {
-            bot.createMessage(msg.channel.id, msg.member.nick + " define what title are you done with , for example '-done gm'");
+            bot.createMessage(msg.channel.id, nick[0] + " define what title are you done with , for example '-done gm'");
           }
         }
       }
@@ -403,13 +412,13 @@ bot.on('messageCreate', (msg) => {
         //bot.createMessage(msg.channel.id, msg.member.roles[0]);
         if (msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")){
           if (active_po == null){
-            active_po = "<@"+msg.member.id+">";
-            active_po_id = msg.member.id;
-            active_po_name = msg.member.nick;
+            active_po = "<@"+nick[1]+">";
+            active_po_id = nick[1];
+            active_po_name = nick[0];
             queue_gm = [];
             queue_cb = [];
             queue_mow = [];
-            bot.createMessage(msg.channel.id, msg.member.nick + " is now active PO, you can ask for titles");
+            bot.createMessage(msg.channel.id, nick[0] + " is now active PO, you can ask for titles");
           }else{
             bot.createMessage(msg.channel.id, active_po_name + " is already logged as PO");
           }
@@ -419,7 +428,7 @@ bot.on('messageCreate', (msg) => {
       }
       else if (split[0] =="-deactivate"){
         if (active_po != null){
-          if(active_po_id == msg.member.id){
+          if(active_po_id == nick[1]){
             active_po = null;
             active_po_id = null;
             active_po_name = null;
@@ -427,8 +436,8 @@ bot.on('messageCreate', (msg) => {
             queue_cb = [];
             queue_mow = [];
 
-            bot.createMessage(msg.channel.id, msg.member.nick + " is no longer logged as PO , please wait for next one");
-            bot.createMessage(msg.channel.id, msg.member.nick + " you managed " + counter + " requests during your service. Thank you.");
+            bot.createMessage(msg.channel.id, nick[0] + " is no longer logged as PO , please wait for next one");
+            bot.createMessage(msg.channel.id, nick[0] + " you managed " + counter + " requests during your service. Thank you.");
             counter = 0;
           }else{
             bot.createMessage(msg.channel.id, "Only active PO can use -deactivate");
@@ -437,7 +446,7 @@ bot.on('messageCreate', (msg) => {
           bot.createMessage(msg.channel.id, "Nobody is logged as PO at this moment");
         }
       }else if(split[0] =="-next"){
-        if ((msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")) && active_po_id == msg.member.id){
+        if ((msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")) && active_po_id == nick[1]){
           if (split[1] == "gm") {
             if (queue_gm.length != 0) {
               bot.createMessage(msg.channel.id, queue_gm[0][1] + " has been removed from GM queue ");
