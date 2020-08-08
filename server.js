@@ -528,7 +528,7 @@ bot.on('messageCreate', (msg) => {
           if (split[1] == "gm") {
             if (queue_gm.length != 0 ) {
               if ((queue_gm[0][0].nick == queue_gm[0][1]) || (queue_gm[0][0].user.username == queue_gm[0][1])){
-                bot.createMessage(msg.channel.id, "<@" + queue_gm[0][0].id + "> you are using GM now , please use **-done gm " + queue_gm[0][1]+"**");
+                bot.createMessage(msg.channel.id, "<@" + queue_gm[0][0].id + "> you are using GM now , please use **-done gm**");
 			  }
               else{
                 bot.createMessage(msg.channel.id, queue_gm[0][1]+", is using GM now , this was asked by" +"<@" + queue_gm[0][0].id + "> , please use **-done gm " + queue_gm[0][1]+"**");
@@ -538,7 +538,7 @@ bot.on('messageCreate', (msg) => {
           } else if (split[1] == "cb") {
             if (queue_cb.length != 0 ) {
               if ((queue_cb[0][0].nick == queue_cb[0][1]) || (queue_cb[0][0].user.username == queue_cb[0][1])){
-                bot.createMessage(msg.channel.id, "<@" + queue_cb[0][0].id + "> you are using CB now , please use **-done cb " + queue_gm[0][1]+"**");
+                bot.createMessage(msg.channel.id, "<@" + queue_cb[0][0].id + "> you are using CB now , please use **-done cb**");
 			  }
               else{
                 bot.createMessage(msg.channel.id, queue_cb[0][1]+", is using CB now , this was asked by" +"<@" + queue_cb[0][0].id + "> , please use **-done cb " + queue_gm[0][1]+"**");
@@ -548,7 +548,7 @@ bot.on('messageCreate', (msg) => {
           } else if (split[1] == "mow") {
             if (queue_mow.length != 0 ) {
               if ((queue_mow[0][0].nick == queue_mow[0][1]) || (queue_mow[0][0].user.username == queue_mow[0][1])){
-                bot.createMessage(msg.channel.id, "<@" + queue_mow[0][0].id + "> you are using MOW now , please use **-done mow " + queue_gm[0][1]+"**");
+                bot.createMessage(msg.channel.id, "<@" + queue_mow[0][0].id + "> you are using MOW now , please use **-done mow**");
 			  }
               else{
                 bot.createMessage(msg.channel.id, queue_mow[0][1]+", is using MOW now , this was asked by" +"<@" + queue_mow[0][0].id + "> , please use **-done mow " + queue_gm[0][1]+"**");
