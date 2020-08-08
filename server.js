@@ -25,7 +25,7 @@ bot.on('ready', () => {
 bot.on('messageCreate', (msg) => {
   //console.log(msg);
 	if (msg.member.nick != null){
-		nick = msg.member.nick , msg.author.id];
+		nick = [msg.member.nick , msg.author.id];
 	}else{
 		nick = [msg.author.username , msg.author.id];
 	}
