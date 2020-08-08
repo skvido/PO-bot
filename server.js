@@ -16,6 +16,7 @@ var name;
 var counter = 0;
 
 var nick;
+var use_nick;
 
 
 bot.on('ready', () => {
@@ -523,32 +524,39 @@ bot.on('messageCreate', (msg) => {
           bot.createMessage(msg.channel.id, "Only active PO can use that command");
         }
       }else if (split[0] =="-use"){
+		  
           if (split[1] == "gm") {
             if (queue_gm.length != 0 ) {
-              if ((queue_gm[0][0].nick == queue_gm[0][1]) || (queue_gm[0][0].user.username == queue_gm[0][1]))
-                bot.createMessage(msg.channel.id, "<@" + queue_gm[0][0].id + "> you are using GM now");
-              else
-                bot.createMessage(msg.channel.id, queue_gm[0][1]+", is using GM now , this was asked by" +"<@" + queue_gm[0][0].id + ">");
+              if ((queue_gm[0][0].nick == queue_gm[0][1]) || (queue_gm[0][0].user.username == queue_gm[0][1])){
+                bot.createMessage(msg.channel.id, "<@" + queue_gm[0][0].id + "> you are using GM now , please use **-done gm " + queue_gm[0][1]+"**");
+			  }
+              else{
+                bot.createMessage(msg.channel.id, queue_gm[0][1]+", is using GM now , this was asked by" +"<@" + queue_gm[0][0].id + "> , please use **-done gm " + queue_gm[0][1]+"**");
+			  }
             }else
               bot.createMessage(msg.channel.id, "GM queue is empty");
           } else if (split[1] == "cb") {
             if (queue_cb.length != 0 ) {
-              if ((queue_cb[0][0].nick == queue_cb[0][1]) || (queue_cb[0][0].user.username == queue_cb[0][1]))
-                bot.createMessage(msg.channel.id, "<@" + queue_cb[0][0].id + "> you are using CB now");
-              else
-                bot.createMessage(msg.channel.id, queue_cb[0][1]+", is using CB now , this was asked by" +"<@" + queue_cb[0][0].id + ">");
+              if ((queue_cb[0][0].nick == queue_cb[0][1]) || (queue_cb[0][0].user.username == queue_cb[0][1])){
+                bot.createMessage(msg.channel.id, "<@" + queue_cb[0][0].id + "> you are using CB now , please use **-done cb " + queue_gm[0][1]+"**");
+			  }
+              else{
+                bot.createMessage(msg.channel.id, queue_cb[0][1]+", is using CB now , this was asked by" +"<@" + queue_cb[0][0].id + "> , please use **-done cb " + queue_gm[0][1]+"**");
+			  }
             }else
               bot.createMessage(msg.channel.id, "CB queue is empty");
           } else if (split[1] == "mow") {
             if (queue_mow.length != 0 ) {
-              if ((queue_mow[0][0].nick == queue_mow[0][1]) || (queue_mow[0][0].user.username == queue_mow[0][1]))
-                bot.createMessage(msg.channel.id, "<@" + queue_mow[0][0].id + "> you are using MOW now");
-              else
-                bot.createMessage(msg.channel.id, queue_mow[0][1]+", is using MOW now , this was asked by" +"<@" + queue_mow[0][0].id + ">");
+              if ((queue_mow[0][0].nick == queue_mow[0][1]) || (queue_mow[0][0].user.username == queue_mow[0][1])){
+                bot.createMessage(msg.channel.id, "<@" + queue_mow[0][0].id + "> you are using MOW now , please use **-done mow " + queue_gm[0][1]+"**");
+			  }
+              else{
+                bot.createMessage(msg.channel.id, queue_mow[0][1]+", is using MOW now , this was asked by" +"<@" + queue_mow[0][0].id + "> , please use **-done mow " + queue_gm[0][1]+"**");
+			  }
             }else
               bot.createMessage(msg.channel.id, "MOW queue is empty");
           }else {
-            bot.createMessage(msg.channel.id, "Define correct title, for example '-use gm");
+            bot.createMessage(msg.channel.id, "Define correct title, for example -use gm");
           }
       }else{
         bot.createMessage(msg.channel.id, "This is not valid command");
