@@ -544,7 +544,7 @@ bot.on('messageCreate', (msg) => {
 					bot.createMessage(msg.channel.id, "<@" + queue_cb[0][0].id + "> you are using CB now , please use **-done cb** when you will be done");
 				  }
 				  else{
-					bot.createMessage(msg.channel.id, queue_cb[0][1]+", is using CB now , this was asked by" +"<@" + queue_cb[0][0].id + "> , please use **-done cb " + queue_gm[0][1]+"** when you will be done");
+					bot.createMessage(msg.channel.id, queue_cb[0][1]+", is using CB now , this was asked by" +"<@" + queue_cb[0][0].id + "> , please use **-done cb " + queue_cb[0][1]+"** when you will be done");
 				  }
 				}else
 				  bot.createMessage(msg.channel.id, "CB queue is empty");
@@ -554,7 +554,7 @@ bot.on('messageCreate', (msg) => {
 					bot.createMessage(msg.channel.id, "<@" + queue_mow[0][0].id + "> you are using MOW now , please use **-done mow** when you will be done");
 				  }
 				  else{
-					bot.createMessage(msg.channel.id, queue_mow[0][1]+", is using MOW now , this was asked by" +"<@" + queue_mow[0][0].id + "> , please use **-done mow " + queue_gm[0][1]+"** when you will be done");
+					bot.createMessage(msg.channel.id, queue_mow[0][1]+", is using MOW now , this was asked by" +"<@" + queue_mow[0][0].id + "> , please use **-done mow " + queue_mow[0][1]+"** when you will be done");
 				  }
 				}else
 				  bot.createMessage(msg.channel.id, "MOW queue is empty");
