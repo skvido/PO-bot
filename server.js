@@ -25,7 +25,7 @@ bot.on('ready', () => {
 
 bot.on('messageCreate', (msg) => {
   //console.log(msg);
-	const channel = msg.channel;
+	var channel = msg.channel;
 	if (msg.member.nick != null){
 		nick = [msg.member.nick , msg.author.id];
 	}else{
@@ -46,7 +46,8 @@ bot.on('messageCreate', (msg) => {
 			queue_cb = [];
 			queue_mow = [];
 			
-			channel.edit({name: "aaa"},"open-buff-request");
+			channel = msg.channel;
+			channel.edit({name: "open-buff-request"},"open-buff-request");
 			bot.createMessage(msg.channel.id, nick[0] + " is now active PO, you can ask for titles");
 		  }else{
 			bot.createMessage(msg.channel.id, active_po_name + " is already logged as PO");
@@ -454,7 +455,9 @@ bot.on('messageCreate', (msg) => {
 				queue_gm = [];
 				queue_cb = [];
 				queue_mow = [];
-				channel.edit({name: "aaa"},"closed-buff-request");
+				
+				channel = msg.channel;
+				channel.edit({name: "closed-buff-request"},"closed-buff-request");
 
 				bot.createMessage(msg.channel.id, nick[0] + " is no longer logged as PO , please wait for next one");
 				bot.createMessage(msg.channel.id, nick[0] + " you managed " + counter + " requests during your service. Thank you.");
