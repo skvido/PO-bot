@@ -24,8 +24,13 @@ bot.on('ready', () => {
 });
 
 bot.on('messageCreate', (msg) => {
-  //console.log(msg);
+    //console.log(msg);
+	
+	for (var i = 0 ; i < msg.member.roles.length ; i++ ){
+		bot.createMessage(msg.channel.id, msg.member.roles[i]);
+	}
 	var channel = msg.channel;
+	
 	if (msg.member.nick != null){
 		nick = [msg.member.nick , msg.author.id];
 	}else{
@@ -36,7 +41,7 @@ bot.on('messageCreate', (msg) => {
 	  
 	  if (split[0] =="-activate"){
 		console.log(msg.member.roles);
-		//bot.createMessage(msg.channel.id, msg.member.roles[0]);
+		
 		if (msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")){
 		  if (active_po == null){
 			active_po = "<@"+nick[1]+">";
