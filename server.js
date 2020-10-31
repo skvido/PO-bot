@@ -2,6 +2,7 @@ const Eris = require('eris');
  
 const bot = new Eris("NzQwODcwODg2NjI1NjQwNDc4.XyvTyA.JGbDQ5czKnwB97KVaTicNgSnFrY");
 
+var po_discord_id = "772082468089102359";
 var active_po = null;
 var active_po_id = null;
 var active_po_name = null;
@@ -26,9 +27,9 @@ bot.on('ready', () => {
 bot.on('messageCreate', (msg) => {
     //console.log(msg);
 	
-	for (var i = 0 ; i < msg.member.roles.length ; i++ ){
+	/*for (var i = 0 ; i < msg.member.roles.length ; i++ ){
 		bot.createMessage(msg.channel.id, msg.member.roles[i]);
-	}
+	}*/
 	var channel = msg.channel;
 	
 	if (msg.member.nick != null){
@@ -42,7 +43,7 @@ bot.on('messageCreate', (msg) => {
 	  if (split[0] =="-activate"){
 		console.log(msg.member.roles);
 		
-		if (msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")){
+		if (msg.member.roles.includes(po_discord_id) || msg.member.roles.includes("740858481271111691")){
 		  if (active_po == null){
 			active_po = "<@"+nick[1]+">";
 			active_po_id = nick[1];
@@ -474,7 +475,7 @@ bot.on('messageCreate', (msg) => {
 			  bot.createMessage(msg.channel.id, "Nobody is logged as PO at this moment");
 			}
 		  }else if(split[0] =="-next"){
-			if ((msg.member.roles.includes("709564651461148675") || msg.member.roles.includes("740858481271111691")) && active_po_id == nick[1]){
+			if ((msg.member.roles.includes(po_discord_id) || msg.member.roles.includes("740858481271111691")) && active_po_id == nick[1]){
 			  if (split[1] == "gm") {
 				if (queue_gm.length != 0) {
 				  bot.createMessage(msg.channel.id, queue_gm[0][1] + " has been removed from GM queue ");
