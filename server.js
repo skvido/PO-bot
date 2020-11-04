@@ -38,12 +38,13 @@ bot.on('messageCreate', (msg) => {
 		nick = [msg.author.username , msg.author.id];
 	}
     if(msg.content.substring(0,1) == ("-")) {
-      var split = msg.content.split(" ");
+	  var message = msg.content.toLowerCase();
+      var split = message.split(" ");
 	  
 	  if (split[0] =="-activate"){
 		console.log(msg.member.roles);
 		
-		if (msg.member.roles.includes(po_discord_id) || msg.member.roles.includes("740858481271111691")){
+		if (msg.member.roles.includes(po_discord_id)){
 		  if (active_po == null){
 			active_po = "<@"+nick[1]+">";
 			active_po_id = nick[1];
